@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>多时区数字时钟</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #1e1e1e;
+      color: #ffffff;
+      text-align: center;
+      margin-top: 100px;
+    }
+    .clock-container {
+      display: inline-block;
+      margin: 20px;
+      padding: 30px;
+      background-color: #2d2d2d;
+      border-radius: 15px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    }
+    h2 { margin-top: 0; color: #4CAF50; }
+    .time { font-size: 3em; font-weight: bold; font-variant-numeric: tabular-nums; }
+  </style>
+</head>
+<body>
+
+  <h1>🌍 我的多时区时钟</h1>
+
+  <div class="clock-container">
+    <h2>📍 本地时间</h2>
+    <div class="time" id="local-time">00:00:00</div>
+  </div>
+
+  <div class="clock-container">
+    <h2>🇭🇰 香港时间</h2>
+    <div class="time" id="hk-time">00:00:00</div>
+  </div>
+
+  <div class="clock-container">
+    <h2>🇮🇸 冰岛时间</h2>
+    <div class="time" id="iceland-time">00:00:00</div>
+  </div>
+
+  <script>
+    function updateClocks() {
+      const now = new Date();
+
+      // 更新本地时间
+      document.getElementById('local-time').innerText = now.toLocaleTimeString('zh-CN', { hour12: false });
+
+      // 更新香港时间 (Asia/Hong_Kong)
+      const hkTime = new Intl.DateTimeFormat('zh-CN', { timeZone: 'Asia/Hong_Kong', timeStyle: 'medium', hour12: false }).format(now);
+      document.getElementById('hk-time').innerText = hkTime;
+
+      // 更新冰岛时间 (Atlantic/Reykjavik)
+      const icelandTime = new Intl.DateTimeFormat('zh-CN', { timeZone: 'Atlantic/Reykjavik', timeStyle: 'medium', hour12: false }).format(now);
+      document.getElementById('iceland-time').innerText = icelandTime;
+    }
+
+    // 每 1000 毫秒（1秒）运行一次 updateClocks 函数
+    setInterval(updateClocks, 1000);
+    updateClocks(); // 网页刚打开时立刻执行一次
+  </script>
+
+</body>
+</html>
